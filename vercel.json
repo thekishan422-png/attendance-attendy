@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "functions": {
+    "api/fetch-attendance.js": {
+      "maxDuration": 30
+    }
+  }
+}

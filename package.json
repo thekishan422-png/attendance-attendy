@@ -1,0 +1,12 @@
+{
+  "name": "agc-attendance-calculator",
+  "version": "1.0.0",
+  "description": "AGC LMS attendance calculator with a fixed 75 percent target.",
+  "scripts": {
+    "start": "node dev-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true
+}

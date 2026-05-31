@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGC Attendance Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div class="brand-lockup">
+          <div>
+            <p class="eyebrow">AGC student utility</p>
+            <h1>Attendance Calculator</h1>
+          </div>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="login-panel">
+          <form id="loginForm" autocomplete="on">
+            <div class="panel-heading">
+              <h2>Student Login</h2>
+              <p>Uses the AGC LMS portal for this request only.</p>
+            </div>
+
+            <label class="field">
+              <span>Student ID / Roll number</span>
+              <input id="studentId" name="studentId" type="text" placeholder="Enter ID" autocomplete="username" required />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input
+                id="password"
+                class="secret-input"
+                name="password"
+                type="text"
+                placeholder="Portal password"
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                required
+              />
+            </label>
+
+            <button class="primary-button" id="fetchButton" type="submit">
+              <span>Fetch attendance</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="M13 6l6 6-6 6" />
+              </svg>
+            </button>
+
+            <p class="privacy-note">Password is never saved by this app.</p>
+          </form>
+
+          <div class="status-panel" id="statusPanel" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="statusText">Ready to calculate.</span>
+          </div>
+        </aside>
+
+        <section class="results-area">
+          <div class="summary-grid" aria-label="Attendance summary">
+            <article class="summary-card">
+              <span>Subjects</span>
+              <strong id="subjectCount">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Overall</span>
+              <strong id="overallPercent">--</strong>
+            </article>
+            <article class="summary-card success">
+              <span>Safe subjects</span>
+              <strong id="safeCount">0</strong>
+            </article>
+            <article class="summary-card danger">
+              <span>Below 75%</span>
+              <strong id="dangerCount">0</strong>
+            </article>
+          </div>
+
+          <section class="student-strip" id="studentStrip" hidden>
+            <div>
+              <span>Student</span>
+              <strong id="studentName">--</strong>
+            </div>
+            <div>
+              <span>Section</span>
+              <strong id="sectionName">--</strong>
+            </div>
+            <div>
+              <span>Last fetched</span>
+              <strong id="lastFetched">--</strong>
+            </div>
+          </section>
+
+          <div class="toolbar">
+            <select id="filterSelect" aria-label="Filter subjects">
+              <option value="all">All subjects</option>
+              <option value="below">Below 75%</option>
+              <option value="safe">Safe to skip</option>
+            </select>
+          </div>
+
+          <div class="subject-list" id="subjectList"></div>
+          <div class="empty-state" id="emptyState">
+            <strong>No attendance loaded</strong>
+            <span>Enter your AGC LMS credentials to fetch subject-wise attendance.</span>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="subjectCardTemplate">
+      <article class="subject-card">
+        <div class="subject-main">
+          <div>
+            <h3 data-name></h3>
+            <p data-meta></p>
+          </div>
+          <div class="percent-badge" data-percent></div>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" data-progress></div>
+        </div>
+
+        <dl class="stat-grid">
+          <div>
+            <dt>Present</dt>
+            <dd data-present></dd>
+          </div>
+          <div>
+            <dt>Total</dt>
+            <dd data-total></dd>
+          </div>
+          <div>
+            <dt>Need to attend</dt>
+            <dd data-needed></dd>
+          </div>
+          <div>
+            <dt>Can skip</dt>
+            <dd data-skip></dd>
+          </div>
+        </dl>
+
+        <div class="subject-note" data-note></div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
