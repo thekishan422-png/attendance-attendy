@@ -1,8 +1,31 @@
 {
   "version": 2,
-  "functions": {
-    "api/fetch-attendance.js": {
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "api/fetch-attendance.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/api/fetch-attendance",
+      "dest": "/api/fetch-attendance.js"
+    },
+    {
+      "src": "/app.js",
+      "dest": "/public/app.js"
+    },
+    {
+      "src": "/styles.css",
+      "dest": "/public/styles.css"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.html"
+    }
+  ]
 }
